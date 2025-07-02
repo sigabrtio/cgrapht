@@ -1,0 +1,11 @@
+# Build with C++20
+build --cxxopt=-std=c++20
+
+# Show more verbose output
+build --verbose_failures
+
+# Use colors in output
+common --color=yes
+
+build --action_env=CC=/usr/bin/clang
+build --action_env=CXX=/usr/bin/clang++
