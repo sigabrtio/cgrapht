@@ -1,0 +1,14 @@
+cc_test(
+    name = "cgrapht_unit_tests",
+    srcs = [
+        "test_edge_manipulation_happy_case.cc",
+        "test_vertex_manipulation_happy_case.cc",
+        "test_edge_manipulation_edge_cases.cc",
+        "test_vertex_manipulation_edge_cases.cc",
+        "test_neighbour_functions.cc"
+    ],
+    deps = [
+        "//:cgrapht",
+        "@catch2//:catch2_main",
+    ],
+)
