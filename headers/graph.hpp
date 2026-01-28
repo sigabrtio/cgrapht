@@ -154,9 +154,9 @@ namespace cgrapht {
             return Result<std::unordered_set<std::size_t>, ErrorType>::error(ErrorType::ABSENT_VERTX);
         }
 
-        auto children = adjacency_list.at(vertex_id).incoming_edges
+        auto children = adjacency_list.at(vertex_id).outgoing_edges
         | std::views::transform([this](const auto& edge_id) {
-            return edge_index.at(edge_id).from_id;
+            return edge_index.at(edge_id).to_id;
           });
 
         auto parents = adjacency_list.at(vertex_id).incoming_edges
