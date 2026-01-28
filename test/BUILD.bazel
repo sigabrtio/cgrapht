@@ -1,3 +1,5 @@
+load("@rules_cc//cc:defs.bzl", "cc_library", "cc_binary", "cc_test")
+
 cc_test(
     name = "cgrapht_unit_tests",
     srcs = [
@@ -5,7 +7,9 @@ cc_test(
         "test_vertex_manipulation_happy_case.cc",
         "test_edge_manipulation_edge_cases.cc",
         "test_vertex_manipulation_edge_cases.cc",
-        "test_neighbour_functions.cc"
+        "test_neighbour_functions.cc",
+        "test_connecting_edges.cc",
+        "test_result.cc"
     ],
     deps = [
         "//:cgrapht",

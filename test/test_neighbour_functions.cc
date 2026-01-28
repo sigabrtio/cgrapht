@@ -97,15 +97,74 @@ TEST_CASE("Neighbour functions happy case") {
 
                             auto neighbours = my_graph.get_neighbours(v2);
 
-                            REQUIRE(neighbours.is_ok());
-                            REQUIRE(neighbours.get_ok().size() == 3);
-                            REQUIRE(std::ranges::find(neighbours.get_ok(), v4) != neighbours.get_ok().end());
-                            REQUIRE(std::ranges::find(neighbours.get_ok(), v5) != neighbours.get_ok().end());
-                            REQUIRE(std::ranges::find(neighbours.get_ok(), v1) != neighbours.get_ok().end());
+                            THEN("I should correctly get bacl ALL neighbour IDs of v2 (both children and parents).") {
 
+                                REQUIRE(neighbours.is_ok());
+                                REQUIRE(neighbours.get_ok().size() == 3);
+                                REQUIRE(std::ranges::find(neighbours.get_ok(), v4) != neighbours.get_ok().end());
+                                REQUIRE(std::ranges::find(neighbours.get_ok(), v5) != neighbours.get_ok().end());
+                                REQUIRE(std::ranges::find(neighbours.get_ok(), v1) != neighbours.get_ok().end());
+                            }
                         }
                     }
                 }
+            }
+        }
+    }
+}
+
+TEST_CASE("Neighbour functions edge cases") {
+
+    GIVEN("I have a graph") {
+
+        cgrapht::DirectedGraph<Vertex, cgrapht::DefaultEdge> my_graph;
+        const std::size_t v1 {my_graph.add_vertex(Vertex{1, "One"}).get_ok()};
+        const std::size_t v2 {my_graph.add_vertex(Vertex{2, "Two"}).get_ok()};
+        const std::size_t v3 {my_graph.add_vertex(Vertex{3, "Three"}).get_ok()};
+        const std::size_t v4 {my_graph.add_vertex(Vertex{4, "Four"}).get_ok()};
+        const std::size_t v5 {my_graph.add_vertex(Vertex{5, "Five"}).get_ok()};
+        const std::size_t v6 {my_graph.add_vertex(Vertex{6, "Six"}).get_ok()};
+
+        my_graph.add_edge(v2, v1, cgrapht::DefaultEdge(21));
+        my_graph.add_edge(v3, v1, cgrapht::DefaultEdge(31));
+        my_graph.add_edge(v4, v2, cgrapht::DefaultEdge(42));
+        my_graph.add_edge(v5, v2, cgrapht::DefaultEdge(52));
+
+        WHEN("I get the neighbours of vN (Non existent vertex") {
+
+            auto result1 = my_graph.get_parents(1000);
+            auto result2 = my_graph.get_children(1000);
+            auto result3 = my_graph.get_neighbours(1000);
+
+
+            THEN("I should get an error") {
+
+                REQUIRE(!result1.is_ok());
+                REQUIRE(!result2.is_ok());
+                REQUIRE(!result3.is_ok());
+
+                REQUIRE(result1.get_error() == cgrapht::ErrorType::ABSENT_VERTX);
+                REQUIRE(result2.get_error() == cgrapht::ErrorType::ABSENT_VERTX);
+                REQUIRE(result3.get_error() == cgrapht::ErrorType::ABSENT_VERTX);
+
+            }
+        }
+
+        WHEN("I get the neighbours of an unconnected vertex") {
+
+            auto result1 = my_graph.get_parents(v6);
+            auto result2 = my_graph.get_children(v6);
+            auto result3 = my_graph.get_neighbours(v6);
+
+            THEN("I should get back an empty list") {
+
+                REQUIRE(result1.is_ok());
+                REQUIRE(result2.is_ok());
+                REQUIRE(result3.is_ok());
+
+                REQUIRE(result1.get_ok().empty());
+                REQUIRE(result2.get_ok().empty());
+                REQUIRE(result3.get_ok().empty());
             }
         }
     }
