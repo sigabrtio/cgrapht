@@ -7,7 +7,8 @@ cc_test(
         "test_vertex_manipulation_happy_case.cc",
         "test_edge_manipulation_edge_cases.cc",
         "test_vertex_manipulation_edge_cases.cc",
-        "test_neighbour_functions.cc"
+        "test_neighbour_functions.cc",
+        "test_connecting_edges.cc"
     ],
     deps = [
         "//:cgrapht",

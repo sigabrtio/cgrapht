@@ -18,5 +18,4 @@ struct std::hash<cgrapht::DefaultEdge> {
     std::size_t operator()(const cgrapht::DefaultEdge& edge) const noexcept {
         return edge.id;
     }
-
 };

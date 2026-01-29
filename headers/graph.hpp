@@ -50,6 +50,8 @@ namespace cgrapht {
         Result<std::unordered_set<std::size_t>, ErrorType> get_children(const std::size_t& vertex_id) const;
         Result<std::unordered_set<std::size_t>, ErrorType> get_parents(const std::size_t& vertex_id) const;
         Result<std::unordered_set<std::size_t>, ErrorType> get_neighbours(const std::size_t& vertex_id) const;
+        Result<std::unordered_set<std::size_t>, ErrorType> get_outgoing_edges(const std::size_t& vertex_id) const;
+        Result<std::unordered_set<std::size_t>, ErrorType> get_incoming_edges(const std::size_t& vertex_id) const;
 
         std::ranges::forward_range auto get_vertices() const & {
             return vertex_index | std::views::values;
@@ -168,5 +170,21 @@ namespace cgrapht {
         neighbours.insert(parents.begin(), parents.end());
 
         return Result<std::unordered_set<std::size_t>, ErrorType>::success(std::move(neighbours));
+    }
+
+    template <Hashable V, Hashable E> Result<std::unordered_set<std::size_t>, ErrorType> DirectedGraph<V, E>::get_outgoing_edges(const std::size_t& vertex_id) const {
+        if (!adjacency_list.contains(vertex_id)) {
+            return Result<std::unordered_set<std::size_t>, ErrorType>::error(ErrorType::ABSENT_VERTX);
+        }
+        auto children {adjacency_list.at(vertex_id).outgoing_edges};
+        return Result<std::unordered_set<std::size_t>, ErrorType>::success(std::move(children));
+    }
+
+    template <Hashable V, Hashable E> Result<std::unordered_set<std::size_t>, ErrorType> DirectedGraph<V, E>::get_incoming_edges(const std::size_t& vertex_id) const {
+        if (!adjacency_list.contains(vertex_id)) {
+            return Result<std::unordered_set<std::size_t>, ErrorType>::error(ErrorType::ABSENT_VERTX);
+        }
+        auto children {adjacency_list.at(vertex_id).incoming_edges};
+        return Result<std::unordered_set<std::size_t>, ErrorType>::success(std::move(children));
     }
 }
