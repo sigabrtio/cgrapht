@@ -4,8 +4,8 @@
 #include <iostream>
 #include <catch2/catch_test_macros.hpp>
 
-#include "headers/default_edge.hpp"
-#include "headers/graph.hpp"
+#include "cgrapht/default_edge.hpp"
+#include "cgrapht/graph.hpp"
 
 struct Vertex final{
     std::size_t id {};

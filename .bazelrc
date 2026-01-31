@@ -7,8 +7,5 @@ build --verbose_failures
 # Use colors in output
 common --color=yes
 
-build --action_env=CC=/usr/bin/gcc
-build --action_env=CXX=/usr/bin/g++
-
 # Enable bzlmod
 common --enable_bzlmod

@@ -2,7 +2,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include "models.hpp"
+#include "cgrapht/models.hpp"
 
 using cgrapht::Result;
 using cgrapht::ErrorType;

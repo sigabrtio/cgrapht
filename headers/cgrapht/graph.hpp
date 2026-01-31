@@ -25,7 +25,7 @@
 #include <iostream>
 #include <set>
 
-#include "commons.hpp"
+#include "cgrapht/commons.hpp"
 #include "models.hpp"
 
 namespace cgrapht {
