@@ -1,0 +1,468 @@
+/*
+ * Modern Flat Design for Doxygen
+ * A clean, modern stylesheet for cgrapht documentation
+ */
+
+/* ========================================================================
+   Modern Color Palette
+   ======================================================================== */
+:root {
+    --primary-color: #2563eb;        /* Modern blue */
+    --primary-dark: #1e40af;
+    --primary-light: #3b82f6;
+    --accent-color: #10b981;         /* Modern green */
+    --background: #ffffff;
+    --background-alt: #f8fafc;
+    --surface: #ffffff;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --border-color: #e2e8f0;
+    --code-background: #f1f5f9;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+/* ========================================================================
+   Base Styles - Clean Typography
+   ======================================================================== */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--background-alt);
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* ========================================================================
+   Header - Modern Flat Navigation
+   ======================================================================== */
+#top {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+
+#titlearea {
+    background: transparent;
+    border: none;
+    padding: 1.5rem 0;
+}
+
+#projectname {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+#projectbrief {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+}
+
+#projectnumber {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Navigation Tabs */
+.tabs, .tabs2, .tabs3 {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.tablist {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.tablist li {
+    display: inline-block;
+    margin: 0;
+}
+
+.tablist a {
+    display: block;
+    padding: 0.75rem 1.25rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    border: none;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+    background: transparent;
+}
+
+.tablist a:hover {
+    color: var(--primary-color);
+    background: var(--background-alt);
+    border-bottom-color: var(--primary-light);
+}
+
+.tablist li.current a {
+    color: var(--primary-color);
+    background: transparent;
+    border-bottom-color: var(--primary-color);
+}
+
+/* ========================================================================
+   Sidebar - Clean Tree View
+   ======================================================================== */
+#side-nav {
+    background: var(--surface);
+    border-right: 1px solid var(--border-color);
+    padding: 1rem;
+}
+
+.ui-resizable-e {
+    background: var(--border-color);
+    width: 1px;
+}
+
+#nav-tree {
+    background: transparent;
+}
+
+#nav-tree .item {
+    color: var(--text-primary);
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    transition: all 0.15s ease;
+}
+
+#nav-tree .item:hover {
+    background: var(--background-alt);
+    color: var(--primary-color);
+}
+
+#nav-tree .selected {
+    background: var(--primary-color);
+    color: white;
+    box-shadow: var(--shadow-sm);
+}
+
+/* ========================================================================
+   Content Area - Modern Cards
+   ======================================================================== */
+#doc-content {
+    background: var(--background-alt);
+    padding: 2rem;
+}
+
+.contents {
+    background: var(--surface);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-sm);
+    max-width: 1200px;
+}
+
+/* Headers */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2.25rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+h2 {
+    font-size: 1.875rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    border: none;
+}
+
+/* ========================================================================
+   Code Blocks - Modern Syntax Highlighting
+   ======================================================================== */
+pre.fragment, div.fragment {
+    background: var(--code-background);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+    box-shadow: var(--shadow-sm);
+}
+
+code {
+    background: var(--code-background);
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+    font-size: 0.875em;
+    color: var(--text-primary);
+}
+
+.line {
+    color: var(--text-primary);
+    line-height: 1.5;
+}
+
+/* Syntax highlighting */
+.keyword { color: #d73a49; font-weight: 600; }
+.keywordtype { color: #005cc5; font-weight: 600; }
+.keywordflow { color: #d73a49; font-weight: 600; }
+.comment { color: #6a737d; font-style: italic; }
+.preprocessor { color: #005cc5; }
+.stringliteral { color: #032f62; }
+
+/* ========================================================================
+   Tables - Clean Design
+   ======================================================================== */
+table.memberdecls, table.fieldtable {
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    width: 100%;
+}
+
+.memberdecls td, .fieldtable td {
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem;
+}
+
+.memberdecls tr:last-child td,
+.fieldtable tr:last-child td {
+    border-bottom: none;
+}
+
+.memberdecls tr:hover,
+.fieldtable tr:hover {
+    background: var(--background-alt);
+}
+
+.memItemLeft, .memItemRight, .memTemplItemLeft, .memTemplItemRight {
+    background: transparent;
+}
+
+/* ========================================================================
+   Member Documentation - Card Style
+   ======================================================================== */
+.memitem {
+    background: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    margin: 1.5rem 0;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.memproto {
+    background: var(--background-alt);
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    padding: 1.25rem;
+    font-weight: 500;
+}
+
+.memdoc {
+    background: var(--surface);
+    border: none;
+    padding: 1.5rem;
+}
+
+.memname {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.paramname {
+    color: var(--accent-color);
+    font-weight: 500;
+}
+
+/* ========================================================================
+   Buttons & Links - Modern Style
+   ======================================================================== */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+a.el {
+    font-weight: 500;
+}
+
+/* ========================================================================
+   Search Box - Modern Input
+   ======================================================================== */
+#MSearchBox {
+    background: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+}
+
+#MSearchField {
+    background: var(--background-alt);
+    border: none;
+    border-radius: 0.375rem;
+    padding: 0.5rem 0.75rem;
+    color: var(--text-primary);
+    font-size: 0.875rem;
+}
+
+#MSearchField:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* ========================================================================
+   Badges & Labels - Flat Design
+   ======================================================================== */
+.mlabel {
+    background: var(--primary-color);
+    color: white;
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    box-shadow: none;
+    border: none;
+}
+
+.mlabels-right {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* ========================================================================
+   Directory/File Lists - Clean Cards
+   ======================================================================== */
+.directory {
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.directory tr {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.directory tr:last-child {
+    border-bottom: none;
+}
+
+.directory tr:hover {
+    background: var(--background-alt);
+}
+
+.directory .icon {
+    color: var(--primary-color);
+}
+
+/* ========================================================================
+   Footer - Minimal
+   ======================================================================== */
+.footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+/* ========================================================================
+   Responsive Design
+   ======================================================================== */
+@media (max-width: 768px) {
+    #doc-content {
+        padding: 1rem;
+    }
+    
+    .contents {
+        padding: 1rem;
+    }
+    
+    h1 {
+        font-size: 1.75rem;
+    }
+}
+
+/* ========================================================================
+   Dark Mode Support (Optional)
+   ======================================================================== */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #3b82f6;
+        --primary-dark: #2563eb;
+        --primary-light: #60a5fa;
+        --accent-color: #10b981;
+        --background: #0f172a;
+        --background-alt: #1e293b;
+        --surface: #1e293b;
+        --text-primary: #f1f5f9;
+        --text-secondary: #94a3b8;
+        --border-color: #334155;
+        --code-background: #0f172a;
+    }
+    
+    .keyword { color: #ff7b72; }
+    .keywordtype { color: #79c0ff; }
+    .keywordflow { color: #ff7b72; }
+    .comment { color: #8b949e; }
+    .preprocessor { color: #79c0ff; }
+    .stringliteral { color: #a5d6ff; }
+}
+
+/* ========================================================================
+   Utility Classes
+   ======================================================================== */
+.center {
+    text-align: center;
+}
+
+.textblock {
+    margin: 1rem 0;
+    line-height: 1.7;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 2rem 0;
+}
+
+/* ========================================================================
+   Graph/Diagram Improvements
+   ======================================================================== */
+.dotgraph {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.dyncontent {
+    margin: 1rem 0;
+}
