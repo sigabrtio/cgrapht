@@ -1,4 +1,4 @@
-# cgrapht
+# cgraph\<T>
 
 > A modern, header-only C++20 graph library for in-memory directed graphs
 
@@ -231,37 +231,6 @@ Both vertex (`V`) and edge (`E`) types must satisfy the `Hashable` concept:
 - Must be hashable via `std::hash<T>`
 - Must implement `operator==` for equality comparison
 
-## Examples
-
-See the [`examples/`](examples/) directory for more usage patterns:
-- [Social Network Graph](examples/social_network.cpp)
-- [Task Dependency Graph](examples/task_dependencies.cpp)
-- [Road Network](examples/road_network.cpp)
-
-## Roadmap
-
-- [ ] Undirected graph support
-- [ ] Graph algorithms (DFS, BFS, shortest path, etc.)
-- [ ] Weighted graph utilities
-- [ ] Graph serialization/deserialization
-- [ ] Performance benchmarks
-- [ ] Graph visualization utilities
-
-## Contributing
-
-Contributions are welcome! Please:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-Please ensure:
-- Code follows C++20 best practices
-- All tests pass (`bazel test //...`)
-- New features include tests
-- Documentation is updated
 
 ## License
 

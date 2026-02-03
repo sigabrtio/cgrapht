@@ -196,10 +196,9 @@ namespace cgrapht {
     }
 
     template <Hashable V, Hashable E> Result<std::size_t, ErrorType> DirectedGraph<V, E>::delete_edge(const std::size_t& edge_id) {
-        if (edge_index.contains(edge_id)) {
-            const std::size_t from_id = edge_index.at(edge_id).from_id;
-            const std::size_t to_id = edge_index.at(edge_id).to_id;
-            edge_index.erase(edge_id);
+        if (auto it = edge_index.find(edge_id); it != edge_index.end()) {
+            const auto& [from_id, to_id, _] =it ->second;
+            edge_index.erase(it);
             adjacency_list[from_id].outgoing_edges.erase(edge_id);
             adjacency_list[to_id].incoming_edges.erase(edge_id);
             return Result<std::size_t, ErrorType>::success(edge_id);

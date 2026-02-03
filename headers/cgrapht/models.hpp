@@ -51,7 +51,6 @@ namespace cgrapht {
         static Result error(const ERROR& e) {
             Result r;
             r.result = e;
-            r.is_success = false;
             return r;
         }
 
@@ -79,7 +78,7 @@ namespace cgrapht {
          * @return True if success.
          */
         [[nodiscard]] bool is_ok() const {
-            return is_success;
+            return std::holds_alternative<SUCCESS>(result);
         }
 
         /**
@@ -100,7 +99,7 @@ namespace cgrapht {
          * @throws std::runtime_error if this is an error result.
          */
         [[nodiscard]] SUCCESS consume_ok() && {
-            if (is_success) {
+            if (is_ok()) {
                 return std::move(std::get<SUCCESS>(result));
             }
             throw std::runtime_error("Cannot consume ok value from error result");
@@ -112,19 +111,19 @@ namespace cgrapht {
          * @throws std::runtime_error if this is a success result.
          */
         [[nodiscard]] const ERROR& get_error() const & {
-            if (!is_success) {
+            if (!is_ok()) {
                 return std::get<ERROR>(result);
             }
             throw std::runtime_error("Cannot get error value from success result");
         }
 
         /**
-         * @brief Move error value out of the result.
+         * @brief Move the error value out of the result.
          * @return Error value.
          * @throws std::runtime_error if this is a success result.
          */
         [[nodiscard]] ERROR consume_error() && {
-            if (!is_success) {
+            if (!is_ok()) {
                 return std::move(std::get<ERROR>(result));
             }
             throw std::runtime_error("Cannot consume error value from success result");
