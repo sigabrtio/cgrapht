@@ -80,6 +80,7 @@ HTML_TIMESTAMP         = YES
 HTML_DYNAMIC_SECTIONS  = YES
 GENERATE_TREEVIEW      = YES
 TREEVIEW_WIDTH         = 250
+HTML_EXTRA_STYLESHEET  = doxygen-custom.css
 
 #---------------------------------------------------------------------------
 # Configuration options related to the LaTeX output
