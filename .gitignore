@@ -1,4 +1,4 @@
 .clwb
 build/
 bazel*
-.idea/
+.idea/*
