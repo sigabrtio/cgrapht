@@ -1,6 +1,7 @@
 #define CATCH_CONFIG_MAIN
 
 #include <algorithm>
+#include <iostream>
 #include <catch2/catch_test_macros.hpp>
 
 #include "cgrapht/default_edge.hpp"

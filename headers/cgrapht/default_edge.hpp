@@ -6,10 +6,8 @@
 namespace cgrapht {
     struct DefaultEdge {
         std::size_t id {};
-        explicit DefaultEdge(const std::size_t& id) : id{id} {}
-        bool operator==(const DefaultEdge& other) const {
-            return id == other.id;
-        }
+        explicit DefaultEdge(std::size_t id) : id{id} {}
+        bool operator==(const DefaultEdge& other) const = default;
     };
 }
 

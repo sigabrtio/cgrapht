@@ -59,6 +59,26 @@ SCENARIO("Result construction cases") {
     }
 }
 
+SCENARIO("Result lvalue error construction") {
+
+    GIVEN("I construct an error from a named lvalue error value") {
+
+        ErrorType err {ErrorType::ABSENT_VERTX};
+        Result r {Result<int, ErrorType>::error(err)};
+
+        THEN("The result should be an error") {
+
+            REQUIRE(!r.is_ok());
+            REQUIRE(ErrorType::ABSENT_VERTX == r.get_error());
+        }
+
+        THEN("Calling get_ok() should throw") {
+
+            REQUIRE_THROWS_AS(r.get_ok(), std::runtime_error);
+        }
+    }
+}
+
 SCENARIO("Result consumption cases") {
 
     GIVEN("I consume a result") {

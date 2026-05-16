@@ -51,6 +51,7 @@ namespace cgrapht {
         static Result error(const ERROR& e) {
             Result r;
             r.result = e;
+            r.is_success = false;
             return r;
         }
 

@@ -20,10 +20,6 @@
 #include <functional>
 #include <ranges>
 #include <unordered_map>
-#include <string>
-
-#include <iostream>
-#include <set>
 
 #include "cgrapht/commons.hpp"
 #include "models.hpp"
@@ -40,7 +36,7 @@ namespace cgrapht {
         std::size_t to_id;
         E edge;
 
-        bool operator==(const Edge& other) const& {
+        bool operator==(const Edge& other) const {
             return from_id == other.from_id && edge == other.edge && to_id == other.to_id;
         }
     };
@@ -81,7 +77,7 @@ namespace cgrapht {
          * @param vertex_id Vertex id.
          * @return Result containing the deleted vertex id or an error.
          */
-        Result<std::size_t, ErrorType> delete_vertex(const std::size_t& vertex_id);
+        Result<std::size_t, ErrorType> delete_vertex(std::size_t vertex_id);
         /**
          * @brief Add a directed edge between two vertices.
          * @param from_id Source vertex id.
@@ -89,55 +85,55 @@ namespace cgrapht {
          * @param e Edge payload.
          * @return Result containing the edge id or an error.
          */
-        Result<std::size_t, ErrorType> add_edge(const std::size_t& from_id, const std::size_t& to_id, const E& e);
+        Result<std::size_t, ErrorType> add_edge(std::size_t from_id, std::size_t to_id, const E& e);
         /**
          * @brief Delete an edge by id.
          * @param edge_id Edge id.
          * @return Result containing the deleted edge id or an error.
          */
-        Result<std::size_t, ErrorType> delete_edge(const std::size_t& edge_id);
+        Result<std::size_t, ErrorType> delete_edge(std::size_t edge_id);
         /**
          * @brief Fetch a vertex payload by id.
          * @param id Vertex id.
          * @return Result containing the vertex or an error.
          */
-        Result<V, ErrorType> get_vertex(const std::size_t& id) const;
+        Result<V, ErrorType> get_vertex(std::size_t id) const;
         /**
          * @brief Fetch an edge record by id.
          * @param id Edge id.
          * @return Result containing the edge or an error.
          */
-        Result<Edge<E>, ErrorType> get_edge(const std::size_t& id) const;
+        Result<Edge<E>, ErrorType> get_edge(std::size_t id) const;
         /**
          * @brief Get adjacent children (outgoing neighbors).
          * @param vertex_id Vertex id.
          * @return Result containing a set of vertex ids or an error.
          */
-        Result<std::unordered_set<std::size_t>, ErrorType> get_children(const std::size_t& vertex_id) const;
+        Result<std::unordered_set<std::size_t>, ErrorType> get_children(std::size_t vertex_id) const;
         /**
          * @brief Get adjacent parents (incoming neighbors).
          * @param vertex_id Vertex id.
          * @return Result containing a set of vertex ids or an error.
          */
-        Result<std::unordered_set<std::size_t>, ErrorType> get_parents(const std::size_t& vertex_id) const;
+        Result<std::unordered_set<std::size_t>, ErrorType> get_parents(std::size_t vertex_id) const;
         /**
          * @brief Get all adjacent neighbors (incoming or outgoing).
          * @param vertex_id Vertex id.
          * @return Result containing a set of vertex ids or an error.
          */
-        Result<std::unordered_set<std::size_t>, ErrorType> get_neighbours(const std::size_t& vertex_id) const;
+        Result<std::unordered_set<std::size_t>, ErrorType> get_neighbours(std::size_t vertex_id) const;
         /**
          * @brief Get outgoing edge ids for a vertex.
          * @param vertex_id Vertex id.
          * @return Result containing a set of edge ids or an error.
          */
-        Result<std::unordered_set<std::size_t>, ErrorType> get_outgoing_edges(const std::size_t& vertex_id) const;
+        Result<std::unordered_set<std::size_t>, ErrorType> get_outgoing_edges(std::size_t vertex_id) const;
         /**
          * @brief Get incoming edge ids for a vertex.
          * @param vertex_id Vertex id.
          * @return Result containing a set of edge ids or an error.
          */
-        Result<std::unordered_set<std::size_t>, ErrorType> get_incoming_edges(const std::size_t& vertex_id) const;
+        Result<std::unordered_set<std::size_t>, ErrorType> get_incoming_edges(std::size_t vertex_id) const;
 
         /**
          * @brief View of all vertex payloads.
@@ -165,7 +161,7 @@ namespace cgrapht {
         return Result<std::size_t, ErrorType>::success(vertex_id);
     }
 
-    template <Hashable V, Hashable E> Result<std::size_t, ErrorType> DirectedGraph<V, E>::delete_vertex(const std::size_t& vertex_id) {
+    template <Hashable V, Hashable E> Result<std::size_t, ErrorType> DirectedGraph<V, E>::delete_vertex(std::size_t vertex_id) {
         if (!vertex_index.contains(vertex_id)) {
             return Result<std::size_t, ErrorType>::error(ErrorType::ABSENT_VERTX);
         }
@@ -177,7 +173,7 @@ namespace cgrapht {
         return Result<std::size_t, ErrorType>::error(ErrorType::VERTEX_NOT_FREE);
     }
 
-    template <Hashable V, Hashable E> Result<std::size_t, ErrorType> DirectedGraph<V, E>::add_edge(const std::size_t& from_id, const std::size_t& to_id, const E& e) {
+    template <Hashable V, Hashable E> Result<std::size_t, ErrorType> DirectedGraph<V, E>::add_edge(std::size_t from_id, std::size_t to_id, const E& e) {
         if (!vertex_index.contains(from_id) || !vertex_index.contains(to_id)) {
             return Result<std::size_t, ErrorType>::error(ErrorType::ABSENT_VERTX);
         }
@@ -195,9 +191,9 @@ namespace cgrapht {
         }
     }
 
-    template <Hashable V, Hashable E> Result<std::size_t, ErrorType> DirectedGraph<V, E>::delete_edge(const std::size_t& edge_id) {
+    template <Hashable V, Hashable E> Result<std::size_t, ErrorType> DirectedGraph<V, E>::delete_edge(std::size_t edge_id) {
         if (auto it = edge_index.find(edge_id); it != edge_index.end()) {
-            const auto& [from_id, to_id, _] =it ->second;
+            const auto& [from_id, to_id, _] = it->second;
             edge_index.erase(it);
             adjacency_list[from_id].outgoing_edges.erase(edge_id);
             adjacency_list[to_id].incoming_edges.erase(edge_id);
@@ -206,21 +202,21 @@ namespace cgrapht {
         return Result<std::size_t, ErrorType>::error(ErrorType::ABSENT_EDGE);
     }
 
-    template <Hashable V, Hashable E> Result<V, ErrorType> DirectedGraph<V, E>::get_vertex(const std::size_t& id) const {
+    template <Hashable V, Hashable E> Result<V, ErrorType> DirectedGraph<V, E>::get_vertex(std::size_t id) const {
         if (vertex_index.contains(id)) {
             return Result<V, ErrorType>::success(vertex_index.at(id));
         }
         return Result<V, ErrorType>::error(ErrorType::ABSENT_VERTX);
     }
 
-    template <Hashable V, Hashable E> Result<Edge<E>, ErrorType> DirectedGraph<V, E>::get_edge(const std::size_t& id) const {
+    template <Hashable V, Hashable E> Result<Edge<E>, ErrorType> DirectedGraph<V, E>::get_edge(std::size_t id) const {
         if (edge_index.contains(id)) {
             return Result<Edge<E>, ErrorType>::success(edge_index.at(id));
         }
         return Result<Edge<E>, ErrorType>::error(ErrorType::ABSENT_EDGE);
     }
 
-    template <Hashable V, Hashable E> Result<std::unordered_set<std::size_t>, ErrorType> DirectedGraph<V, E>::get_children(const std::size_t& vertex_id) const {
+    template <Hashable V, Hashable E> Result<std::unordered_set<std::size_t>, ErrorType> DirectedGraph<V, E>::get_children(std::size_t vertex_id) const {
         if (!adjacency_list.contains(vertex_id)) {
             return Result<std::unordered_set<std::size_t>, ErrorType>::error(ErrorType::ABSENT_VERTX);
         }
@@ -232,7 +228,7 @@ namespace cgrapht {
         return Result<std::unordered_set<std::size_t>, ErrorType>::success(std::move(children_set));
     }
 
-    template <Hashable V, Hashable E> Result<std::unordered_set<std::size_t>, ErrorType> DirectedGraph<V, E>::get_parents(const std::size_t& vertex_id) const {
+    template <Hashable V, Hashable E> Result<std::unordered_set<std::size_t>, ErrorType> DirectedGraph<V, E>::get_parents(std::size_t vertex_id) const {
         if (!adjacency_list.contains(vertex_id)) {
             return Result<std::unordered_set<std::size_t>, ErrorType>::error(ErrorType::ABSENT_VERTX);
         }
@@ -244,7 +240,7 @@ namespace cgrapht {
         return Result<std::unordered_set<std::size_t>, ErrorType>::success(std::move(parent_set));
     }
 
-    template <Hashable V, Hashable E> Result<std::unordered_set<std::size_t>, ErrorType> DirectedGraph<V, E>::get_neighbours(const std::size_t& vertex_id) const {
+    template <Hashable V, Hashable E> Result<std::unordered_set<std::size_t>, ErrorType> DirectedGraph<V, E>::get_neighbours(std::size_t vertex_id) const {
         if (!adjacency_list.contains(vertex_id)) {
             return Result<std::unordered_set<std::size_t>, ErrorType>::error(ErrorType::ABSENT_VERTX);
         }
@@ -265,7 +261,7 @@ namespace cgrapht {
         return Result<std::unordered_set<std::size_t>, ErrorType>::success(std::move(neighbours));
     }
 
-    template <Hashable V, Hashable E> Result<std::unordered_set<std::size_t>, ErrorType> DirectedGraph<V, E>::get_outgoing_edges(const std::size_t& vertex_id) const {
+    template <Hashable V, Hashable E> Result<std::unordered_set<std::size_t>, ErrorType> DirectedGraph<V, E>::get_outgoing_edges(std::size_t vertex_id) const {
         if (!adjacency_list.contains(vertex_id)) {
             return Result<std::unordered_set<std::size_t>, ErrorType>::error(ErrorType::ABSENT_VERTX);
         }
@@ -273,7 +269,7 @@ namespace cgrapht {
         return Result<std::unordered_set<std::size_t>, ErrorType>::success(std::move(children));
     }
 
-    template <Hashable V, Hashable E> Result<std::unordered_set<std::size_t>, ErrorType> DirectedGraph<V, E>::get_incoming_edges(const std::size_t& vertex_id) const {
+    template <Hashable V, Hashable E> Result<std::unordered_set<std::size_t>, ErrorType> DirectedGraph<V, E>::get_incoming_edges(std::size_t vertex_id) const {
         if (!adjacency_list.contains(vertex_id)) {
             return Result<std::unordered_set<std::size_t>, ErrorType>::error(ErrorType::ABSENT_VERTX);
         }
