@@ -106,7 +106,7 @@ city_graph.add_edge(seattle, portland, Road{"I-5", 280.5});
 Add cgrapht to your `MODULE.bazel`:
 
 ```python
-bazel_dep(name = "cgrapht", version = "1.0.0")
+bazel_dep(name = "cgrapht", version = "0.1.0")
 ```
 
 Then use it in your `BUILD.bazel`:
