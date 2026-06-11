@@ -1,0 +1,15 @@
+{
+  "homepage": "https://github.com/sigabrtio/cgrapht",
+  "maintainers": [
+    {
+      "github": "sigabrtio"
+    }
+  ],
+  "repository": [
+    "github:sigabrtio/cgrapht"
+  ],
+  "versions": [
+    "0.1.0"
+  ],
+  "yanked_versions": {}
+}
