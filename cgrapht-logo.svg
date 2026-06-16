@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 60 60" width="55" height="55">
+  <defs>
+    <!--
+      Arrow marker: tip at refX so it lands exactly on the line endpoint.
+      markerUnits="userSpaceOnUse" keeps the size independent of stroke-width.
+    -->
+    <marker id="ah" markerWidth="4" markerHeight="4"
+            refX="4" refY="2" orient="auto" markerUnits="userSpaceOnUse">
+      <polygon points="0 0, 4 2, 0 4" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <!--
+    Diamond DAG: 4 nodes at the cardinal points of a 56×56 square.
+      Top    (28,  6)  — source
+      Left   ( 6, 28)  — intermediate
+      Right  (50, 28)  — intermediate
+      Bottom (28, 50)  — sink
+
+    Edges stop 6 units from the destination centre (node radius 5.5 + 0.5 gap)
+    so the arrowhead tip lands just outside each node circle.
+
+    Unit vector for every diagonal = (±0.707, ±0.707)
+    6 × 0.707 ≈ 4.24  →  offset ≈ 4.2
+  -->
+
+  <!-- top → left -->
+  <line x1="23.8" y1="10.2"  x2="10.2" y2="23.8"
+        stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah)"/>
+  <!-- top → right -->
+  <line x1="32.2" y1="10.2"  x2="45.8" y2="23.8"
+        stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah)"/>
+  <!-- left → bottom -->
+  <line x1="10.2" y1="32.2"  x2="23.8" y2="45.8"
+        stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah)"/>
+  <!-- right → bottom -->
+  <line x1="45.8" y1="32.2"  x2="32.2" y2="45.8"
+        stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <!-- Nodes painted last so they sit on top of edges/arrowheads -->
+  <circle cx="28" cy="6"  r="5.5" fill="#2563eb"/>  <!-- source:  deep blue  -->
+  <circle cx="6"  cy="28" r="5.5" fill="#3b82f6"/>  <!-- left:    mid blue   -->
+  <circle cx="50" cy="28" r="5.5" fill="#3b82f6"/>  <!-- right:   mid blue   -->
+  <circle cx="28" cy="50" r="5.5" fill="#10b981"/>  <!-- sink:    green      -->
+</svg>

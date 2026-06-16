@@ -1,6 +1,6 @@
 # cgraph\<T>
 
-> A modern, header-only C++20 graph library for in-memory directed graphs
+#### **A modern, header-only C++20 graph library for in-memory directed graphs**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![C++20](https://img.shields.io/badge/C%2B%2B-20-blue.svg)](https://en.wikipedia.org/wiki/C%2B%2B20)
@@ -8,17 +8,18 @@
 
 ## Features
 
-- 🚀 **Header-only** - No compilation required, just include and use
-- 🎯 **Type-safe** - Leverages C++20 concepts for compile-time type checking
-- 💪 **Generic** - Works with any hashable vertex and edge types
-- 📊 **Directed graphs** - Efficient representation with adjacency lists
-- 🔍 **ID-based queries** - Hash-based vertex and edge identification
-- ⚡ **Modern C++** - Uses C++20 features: concepts, ranges, and more
-- 🛡️ **Error handling** - Type-safe `Result` type instead of exceptions for graph operations
+- ✅  **Header-only** - No compilation required, just include and use
+- ✅ **Generic** - Works with any hashable vertex and edge types
+- ✅ **Directed graphs** - Efficient representation with adjacency lists
+- ✅ **ID-based queries** - Hash-based vertex and edge identification
+- ✅ **Modern C++** - Uses C++20 features: concepts, ranges, and more
+- ✅ **Error handling** - Type-safe `Result` type instead of exceptions for graph operations
 
 ## Quick Start
 
 ### Basic Usage
+The following code snippet shows a very simple graph consisting of 3 vertices of integer type and the 
+packaged `DefaultEdge` edge type. 
 
 ```cpp
 #include "cgrapht/graph.hpp"
@@ -30,17 +31,18 @@ int main() {
     // Create a graph with int vertices and DefaultEdge edges
     DirectedGraph<int, DefaultEdge> graph;
     
-    // Add vertices
+    // Add vertices and save the returned IDs. These will be needed later to reference them
     auto v1_result = graph.add_vertex(1);
     auto v2_result = graph.add_vertex(2);
     auto v3_result = graph.add_vertex(3);
     
+    // Verify that the vertex insertions were successful
     if (v1_result.is_ok() && v2_result.is_ok() && v3_result.is_ok()) {
         auto v1_id = v1_result.get_ok();
         auto v2_id = v2_result.get_ok();
         auto v3_id = v3_result.get_ok();
         
-        // Add edges
+        // Add edges (from, to, edge object)
         graph.add_edge(v1_id, v2_id, DefaultEdge{1});
         graph.add_edge(v2_id, v3_id, DefaultEdge{2});
         
@@ -56,8 +58,15 @@ int main() {
 ```
 
 ### Custom Types
+The following example goes over a more practical graph with vertices of "city" type and the edges of "road" type.
 
 ```cpp
+#include <iostream>
+#include <string>
+#include "cgrapht/graph.hpp"
+
+using namespace cgrapht;
+
 struct City {
     std::string name;
     int population;
@@ -92,35 +101,32 @@ struct std::hash<Road> {
     }
 };
 
-// Use in graph
-DirectedGraph<City, Road> city_graph;
-auto seattle = city_graph.add_vertex(City{"Seattle", 750000}).get_ok();
-auto portland = city_graph.add_vertex(City{"Portland", 650000}).get_ok();
-city_graph.add_edge(seattle, portland, Road{"I-5", 280.5});
+int main() {
+    // Use in graph
+    DirectedGraph<City, Road> city_graph;
+    
+    // Add the 2 cities
+    auto seattle = city_graph.add_vertex(City{"Seattle", 750000}).get_ok();
+    auto portland = city_graph.add_vertex(City{"Portland", 650000}).get_ok();
+    
+    // Add the 2 highways
+    auto i5_south = city_graph.add_edge(seattle, portland, Road{"I-5 south", 280.5}).get_ok();
+    auto i5_north = city_graph.add_edge(portland, seattle, Road{"I-5 north", 280.5}).get_ok();
+    
+    // Query the vertices
+    std::cout << "Population of seattle is " << city_graph.get_vertex(seattle).get_ok().population << "\n";
+    std::cout << "Population of portland is " << city_graph.get_vertex(portland).get_ok().population << "\n";
+    
+    // Query an edge
+    std::cout << "Length of I5 south from Seattle to Portland is " << city_graph.get_edge(i5_south).get_ok().edge.distance_km << "\n";
+    
+    // Let's see the neighbours
+    auto neighbours = city_graph.get_neighbours(seattle);
+    // The above should be a set of size 1, containing the ID portland.
+}
 ```
 
 ## Installation
-
-### Using Bazel (Recommended)
-
-Add cgrapht to your `MODULE.bazel`:
-
-```python
-bazel_dep(name = "cgrapht", version = "0.1.0")
-```
-
-Then use it in your `BUILD.bazel`:
-
-```python
-load("@rules_cc//cc:defs.bzl", "cc_binary")
-
-cc_binary(
-    name = "my_app",
-    srcs = ["main.cpp"],
-    deps = ["@cgrapht//:cgrapht"],
-)
-```
-
 ### Manual Installation
 
 Since cgrapht is header-only, you can simply copy the `headers/` directory to your include path:
@@ -208,7 +214,7 @@ bazel test //...
 bazel test //test:cgrapht_unit_tests
 ```
 
-## Documentation
+## API Documentation
 
 Full API documentation is available at: [https://sigabrtio.github.io/cgrapht/](https://sigabrtio.github.io/cgrapht/)
 

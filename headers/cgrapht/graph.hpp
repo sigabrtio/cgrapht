@@ -41,14 +41,15 @@ namespace cgrapht {
         }
     };
 
-    /**
-     * @internal
-     * @brief Incoming/outgoing edge index sets for a vertex.
-     */
+    /// @cond INTERNAL
+
     struct EdgeSet {
         std::unordered_set<std::size_t> incoming_edges;
         std::unordered_set<std::size_t> outgoing_edges;
     };
+
+    /// @endcond
+
 
     /**
      * @brief Directed graph with hashed vertex and edge ids.
@@ -163,7 +164,7 @@ namespace cgrapht {
 
     template <Hashable V, Hashable E> Result<std::size_t, ErrorType> DirectedGraph<V, E>::delete_vertex(std::size_t vertex_id) {
         if (!vertex_index.contains(vertex_id)) {
-            return Result<std::size_t, ErrorType>::error(ErrorType::ABSENT_VERTX);
+            return Result<std::size_t, ErrorType>::error(ErrorType::ABSENT_VERTEX);
         }
         if (adjacency_list.contains(vertex_id) && adjacency_list[vertex_id].incoming_edges.empty() && adjacency_list[vertex_id].outgoing_edges.empty()) {
             adjacency_list.erase(vertex_id);
@@ -175,7 +176,7 @@ namespace cgrapht {
 
     template <Hashable V, Hashable E> Result<std::size_t, ErrorType> DirectedGraph<V, E>::add_edge(std::size_t from_id, std::size_t to_id, const E& e) {
         if (!vertex_index.contains(from_id) || !vertex_index.contains(to_id)) {
-            return Result<std::size_t, ErrorType>::error(ErrorType::ABSENT_VERTX);
+            return Result<std::size_t, ErrorType>::error(ErrorType::ABSENT_VERTEX);
         }
 
         if (std::size_t edge_id {std::hash<E>{}(e)}; edge_index.contains(edge_id)) {
@@ -206,7 +207,7 @@ namespace cgrapht {
         if (vertex_index.contains(id)) {
             return Result<V, ErrorType>::success(vertex_index.at(id));
         }
-        return Result<V, ErrorType>::error(ErrorType::ABSENT_VERTX);
+        return Result<V, ErrorType>::error(ErrorType::ABSENT_VERTEX);
     }
 
     template <Hashable V, Hashable E> Result<Edge<E>, ErrorType> DirectedGraph<V, E>::get_edge(std::size_t id) const {
@@ -218,7 +219,7 @@ namespace cgrapht {
 
     template <Hashable V, Hashable E> Result<std::unordered_set<std::size_t>, ErrorType> DirectedGraph<V, E>::get_children(std::size_t vertex_id) const {
         if (!adjacency_list.contains(vertex_id)) {
-            return Result<std::unordered_set<std::size_t>, ErrorType>::error(ErrorType::ABSENT_VERTX);
+            return Result<std::unordered_set<std::size_t>, ErrorType>::error(ErrorType::ABSENT_VERTEX);
         }
         auto children = adjacency_list.at(vertex_id).outgoing_edges
         | std::views::transform([this](const auto& edge_id) {
@@ -230,7 +231,7 @@ namespace cgrapht {
 
     template <Hashable V, Hashable E> Result<std::unordered_set<std::size_t>, ErrorType> DirectedGraph<V, E>::get_parents(std::size_t vertex_id) const {
         if (!adjacency_list.contains(vertex_id)) {
-            return Result<std::unordered_set<std::size_t>, ErrorType>::error(ErrorType::ABSENT_VERTX);
+            return Result<std::unordered_set<std::size_t>, ErrorType>::error(ErrorType::ABSENT_VERTEX);
         }
         auto parents = adjacency_list.at(vertex_id).incoming_edges
         | std::views::transform([this](const auto& edge_id) {
@@ -242,7 +243,7 @@ namespace cgrapht {
 
     template <Hashable V, Hashable E> Result<std::unordered_set<std::size_t>, ErrorType> DirectedGraph<V, E>::get_neighbours(std::size_t vertex_id) const {
         if (!adjacency_list.contains(vertex_id)) {
-            return Result<std::unordered_set<std::size_t>, ErrorType>::error(ErrorType::ABSENT_VERTX);
+            return Result<std::unordered_set<std::size_t>, ErrorType>::error(ErrorType::ABSENT_VERTEX);
         }
 
         auto children = adjacency_list.at(vertex_id).outgoing_edges
@@ -263,7 +264,7 @@ namespace cgrapht {
 
     template <Hashable V, Hashable E> Result<std::unordered_set<std::size_t>, ErrorType> DirectedGraph<V, E>::get_outgoing_edges(std::size_t vertex_id) const {
         if (!adjacency_list.contains(vertex_id)) {
-            return Result<std::unordered_set<std::size_t>, ErrorType>::error(ErrorType::ABSENT_VERTX);
+            return Result<std::unordered_set<std::size_t>, ErrorType>::error(ErrorType::ABSENT_VERTEX);
         }
         auto children {adjacency_list.at(vertex_id).outgoing_edges};
         return Result<std::unordered_set<std::size_t>, ErrorType>::success(std::move(children));
@@ -271,7 +272,7 @@ namespace cgrapht {
 
     template <Hashable V, Hashable E> Result<std::unordered_set<std::size_t>, ErrorType> DirectedGraph<V, E>::get_incoming_edges(std::size_t vertex_id) const {
         if (!adjacency_list.contains(vertex_id)) {
-            return Result<std::unordered_set<std::size_t>, ErrorType>::error(ErrorType::ABSENT_VERTX);
+            return Result<std::unordered_set<std::size_t>, ErrorType>::error(ErrorType::ABSENT_VERTEX);
         }
         auto children {adjacency_list.at(vertex_id).incoming_edges};
         return Result<std::unordered_set<std::size_t>, ErrorType>::success(std::move(children));

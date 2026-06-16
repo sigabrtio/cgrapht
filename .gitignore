@@ -1,4 +1,5 @@
 .clwb
 build/
 bazel*
+docs/
 .idea/*

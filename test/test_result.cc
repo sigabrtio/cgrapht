@@ -49,12 +49,12 @@ SCENARIO("Result construction cases") {
 
     GIVEN("I construct an error") {
 
-        Result r {Result<int, ErrorType>::error(ErrorType::ABSENT_VERTX)};
+        Result r {Result<int, ErrorType>::error(ErrorType::ABSENT_VERTEX)};
 
         THEN("The result should be an error") {
 
             REQUIRE(!r.is_ok());
-            REQUIRE(ErrorType::ABSENT_VERTX == r.get_error());
+            REQUIRE(ErrorType::ABSENT_VERTEX == r.get_error());
         }
     }
 }
@@ -63,13 +63,13 @@ SCENARIO("Result lvalue error construction") {
 
     GIVEN("I construct an error from a named lvalue error value") {
 
-        ErrorType err {ErrorType::ABSENT_VERTX};
+        ErrorType err {ErrorType::ABSENT_VERTEX};
         Result r {Result<int, ErrorType>::error(err)};
 
         THEN("The result should be an error") {
 
             REQUIRE(!r.is_ok());
-            REQUIRE(ErrorType::ABSENT_VERTX == r.get_error());
+            REQUIRE(ErrorType::ABSENT_VERTEX == r.get_error());
         }
 
         THEN("Calling get_ok() should throw") {

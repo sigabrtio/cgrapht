@@ -8,6 +8,8 @@ on:
       - 'headers/**'
       - 'README.md'
       - 'Doxyfile'
+      - 'doxygen-custom.css'
+      - 'cgrapht-logo.svg'
       - '.github/workflows/docs.yml'
 
 permissions:

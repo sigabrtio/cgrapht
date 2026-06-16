@@ -9,6 +9,7 @@
 namespace cgrapht {
 
     /**
+     * @ingroup ErrorHandling
      * @brief Result wrapper for success or error values.
      *
      * @tparam SUCCESS Success value type.
@@ -132,16 +133,27 @@ namespace cgrapht {
     };
 
     /**
-     * @brief Error codes used by graph operations.
+     * @defgroup ErrorHandling Error Handling
+     * @brief Result and error types used across all graph operations.
+     * @{
+     */
+
+    /**
+     * @brief Error codes returned by graph operations.
+     *
+     * All fallible graph operations return `Result<T, ErrorType>`. Check the
+     * error code via `result.get_error()` when `result.is_ok()` returns false.
      */
     enum class ErrorType {
-        INVALID_ARGUMENT,
-        ABSENT_VERTX,
-        ABSENT_EDGE,
-        EDGE_ALREADY_EXISTS,
-        VERTEX_NOT_FREE,
-        INVALID_OPERATION,
-        OUT_OF_RANGE,
-        UNKNOWN
+        INVALID_ARGUMENT,   ///< A supplied argument is invalid (e.g. null-like value).
+        ABSENT_VERTEX,      ///< The referenced vertex ID does not exist in the graph.
+        ABSENT_EDGE,        ///< The referenced edge ID does not exist in the graph.
+        EDGE_ALREADY_EXISTS,///< An edge between the two vertices already exists.
+        VERTEX_NOT_FREE,    ///< The vertex cannot be removed because it still has incident edges.
+        INVALID_OPERATION,  ///< The requested operation is not valid in the current graph state.
+        OUT_OF_RANGE,       ///< An index or iterator exceeded the valid range.
+        UNKNOWN             ///< An unexpected internal error occurred.
     };
+
+    /** @} */
 }

@@ -33,7 +33,7 @@ TEST_CASE("Add edge between non existent vertices") {
             THEN("It should be a failure.") {
 
                 REQUIRE(!res.is_ok());
-                REQUIRE(cgrapht::ErrorType::ABSENT_VERTX == res.get_error());\
+                REQUIRE(cgrapht::ErrorType::ABSENT_VERTEX == res.get_error());\
 
                 AND_WHEN("I insert insert some vertices") {
                     std::size_t vid_1 = my_graph.add_vertex(Vertex{1, "One"}).get_ok();
@@ -48,8 +48,8 @@ TEST_CASE("Add edge between non existent vertices") {
 
                             REQUIRE(!res1.is_ok());
                             REQUIRE(!res2.is_ok());
-                            REQUIRE(cgrapht::ErrorType::ABSENT_VERTX == res1.get_error());
-                            REQUIRE(cgrapht::ErrorType::ABSENT_VERTX == res2.get_error());
+                            REQUIRE(cgrapht::ErrorType::ABSENT_VERTEX == res1.get_error());
+                            REQUIRE(cgrapht::ErrorType::ABSENT_VERTEX == res2.get_error());
 
                             AND_WHEN("I insert an edge with both vertices missing") {
 
@@ -58,7 +58,7 @@ TEST_CASE("Add edge between non existent vertices") {
                                 THEN("It should fail.") {
 
                                     REQUIRE(!res3.is_ok());
-                                    REQUIRE(cgrapht::ErrorType::ABSENT_VERTX == res3.get_error());
+                                    REQUIRE(cgrapht::ErrorType::ABSENT_VERTEX == res3.get_error());
 
                                     AND_WHEN("I insert the missing vertices and then try the same operation again.") {
                                         std::size_t vid_5 = my_graph.add_vertex(Vertex{5, "Five"}).get_ok();

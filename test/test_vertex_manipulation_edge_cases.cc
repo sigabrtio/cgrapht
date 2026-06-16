@@ -62,7 +62,7 @@ TEST_CASE("Attempting to delete a vertex multiple times.") {
 
                     REQUIRE(res1.is_ok());
                     REQUIRE(!res2.is_ok());
-                    REQUIRE(cgrapht::ErrorType::ABSENT_VERTX == res2.get_error());
+                    REQUIRE(cgrapht::ErrorType::ABSENT_VERTEX == res2.get_error());
                 }
             }
         }
@@ -82,7 +82,7 @@ TEST_CASE("Deleting a non existent vertex.") {
             THEN("The result should be an error.") {
 
                 REQUIRE(!res.is_ok());
-                REQUIRE(cgrapht::ErrorType::ABSENT_VERTX == res.get_error());
+                REQUIRE(cgrapht::ErrorType::ABSENT_VERTEX == res.get_error());
 
                 AND_WHEN("I add this missing vertex.") {
 

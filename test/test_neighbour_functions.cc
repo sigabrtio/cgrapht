@@ -143,9 +143,9 @@ TEST_CASE("Neighbour functions edge cases") {
                 REQUIRE(!result2.is_ok());
                 REQUIRE(!result3.is_ok());
 
-                REQUIRE(result1.get_error() == cgrapht::ErrorType::ABSENT_VERTX);
-                REQUIRE(result2.get_error() == cgrapht::ErrorType::ABSENT_VERTX);
-                REQUIRE(result3.get_error() == cgrapht::ErrorType::ABSENT_VERTX);
+                REQUIRE(result1.get_error() == cgrapht::ErrorType::ABSENT_VERTEX);
+                REQUIRE(result2.get_error() == cgrapht::ErrorType::ABSENT_VERTEX);
+                REQUIRE(result3.get_error() == cgrapht::ErrorType::ABSENT_VERTEX);
 
             }
         }
