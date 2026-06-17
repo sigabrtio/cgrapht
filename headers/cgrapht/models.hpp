@@ -145,13 +145,11 @@ namespace cgrapht {
      * error code via `result.get_error()` when `result.is_ok()` returns false.
      */
     enum class ErrorType {
-        INVALID_ARGUMENT,   ///< A supplied argument is invalid (e.g. null-like value).
+        INVALID_ARGUMENT,   ///< A supplied argument is invalid.
         ABSENT_VERTEX,      ///< The referenced vertex ID does not exist in the graph.
         ABSENT_EDGE,        ///< The referenced edge ID does not exist in the graph.
         EDGE_ALREADY_EXISTS,///< An edge between the two vertices already exists.
         VERTEX_NOT_FREE,    ///< The vertex cannot be removed because it still has incident edges.
-        INVALID_OPERATION,  ///< The requested operation is not valid in the current graph state.
-        OUT_OF_RANGE,       ///< An index or iterator exceeded the valid range.
         UNKNOWN             ///< An unexpected internal error occurred.
     };
 
