@@ -1,0 +1,4 @@
+moduleRoots:
+  - "."
+fixedReleaser:
+  login: "sigabrtio"
